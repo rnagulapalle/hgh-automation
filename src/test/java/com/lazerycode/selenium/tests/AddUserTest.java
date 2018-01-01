@@ -17,6 +17,8 @@ import org.testng.annotations.Test;
 import java.text.DecimalFormat;
 import java.util.Random;
 
+import static org.junit.Assert.assertNotNull;
+
 
 public class AddUserTest  extends DriverBase {
 
@@ -109,6 +111,7 @@ public class AddUserTest  extends DriverBase {
         MailHelper mailHelper = new MailHelper(Constants.NEW_USER);
         Thread.sleep(60000); // sleep for 60 secs
         this.password = mailHelper.getPassword().trim();
+        assertNotNull("Password cant not be null", password);
         System.out.print("New username and password");
         System.out.println(Constants.NEW_USER + " : " +password);
     }
