@@ -19,7 +19,7 @@ public class MailHelper {
 
     private static final String EMAIL_ADDRESS = "happygrasshopperauto@gmail.com";
     private static final String PASSWORD = "Grass785";
-    private static final int MAX_RECENT_MESSAGES_TO_SEARCH = 100;
+    private static final int MAX_RECENT_MESSAGES_TO_SEARCH = 1000;
     private static final String INBOX_FOLDER = "INBOX";
 
     private static final String TEST_EMAIL_SUBJECT = "Happy Grasshopper- Your Account has been created";
@@ -60,7 +60,7 @@ public class MailHelper {
 
             System.out.println("No of Messages : " + folder.getMessageCount());
             System.out.println("No of Unread Messages : " + folder.getUnreadMessageCount());
-            System.out.println(messages.size());
+            System.out.println("Filter messages for account creation " + messages.size());
             for (int i=0; i < messages.size();i++) {
 
                 System.out.println("*****************************************************************************");

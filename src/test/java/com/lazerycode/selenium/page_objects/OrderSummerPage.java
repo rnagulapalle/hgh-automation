@@ -1,5 +1,6 @@
 package com.lazerycode.selenium.page_objects;
 
+import com.lazerycode.selenium.config.Constants;
 import com.lazerycode.selenium.util.Query;
 import org.openqa.selenium.By;
 
@@ -14,6 +15,7 @@ public class OrderSummerPage {
     Query city = new Query(By.id("billing_address[city]"));
     Query state = new Query(By.id("billing_address[state_code]"));
     Query phone = new Query(By.id("billing_address[phone]"));
+    Query zip = new Query(By.id("billing_address[zip]"));
 
     // payment
     Query cc = new Query(By.id("card[number]"));
@@ -29,7 +31,7 @@ public class OrderSummerPage {
     }
 
     public OrderSummerPage fillBilling(String phoneValue, String firstnameValue, String lastnameValue, String addressValue,
-            String cityValue, String stateValue) {
+            String cityValue, String stateValue, String zipVal) {
 
         firstname.findWebElement().clear();
         firstname.findWebElement().sendKeys(firstnameValue);
@@ -45,6 +47,9 @@ public class OrderSummerPage {
 
         phone.findWebElement().clear();
         phone.findWebElement().sendKeys(phoneValue);
+
+        zip.findWebElement().clear();
+        zip.findWebElement().sendKeys(zipVal);
         // select state
         state.findSelectElement().selectByValue(stateValue);
 
@@ -56,9 +61,13 @@ public class OrderSummerPage {
         cc.findWebElement().clear();
         cc.findWebElement().sendKeys(ccValue);
 
-        month.findSelectElement().selectByValue(expMonth);
-
-        year.findSelectElement().selectByValue(expYear);
+        if(Constants.ENV.equals("prod")) {
+            new Query(By.xpath("//div[@id='cb-payment']//select[@id='card[expiry_month]']")).findSelectElement().selectByValue(expMonth);
+            new Query(By.xpath("//div[@id='cb-payment']//select[@id='card[expiry_year]']")).findSelectElement().selectByValue(expYear);
+        } else {
+            month.findSelectElement().selectByValue(expMonth);
+            year.findSelectElement().selectByValue(expYear);
+        }
 
         cvv.findWebElement().clear();
         cvv.findWebElement().sendKeys(cvv2);
@@ -68,8 +77,12 @@ public class OrderSummerPage {
 
     public OrderSummerPage click(String xpath) {
         // next button
-        Query next = new Query(By.xpath(xpath));
-        next.findWebElement().click();
+        if(Constants.ENV.equals("prod")) {
+            new Query(By.className("btn-primary")).findWebElement().click();
+        } else {
+            Query next = new Query(By.xpath(xpath));
+            next.findWebElement().click();
+        }
 
         return this;
     }
