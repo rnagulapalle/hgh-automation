@@ -4,9 +4,6 @@ import com.lazerycode.selenium.util.Query;
 import org.openqa.selenium.By;
 
 
-/**
- * Created by rnagulapalle on 1/1/18.
- */
 public class DatabasePage {
 
     Query next = new Query(By.xpath("//a[@href='/contacts/add']"));

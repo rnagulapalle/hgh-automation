@@ -3,10 +3,6 @@ package com.lazerycode.selenium.page_objects;
 import com.lazerycode.selenium.util.Query;
 import org.openqa.selenium.By;
 
-
-/**
- * Created by rnagulapalle on 12/30/17.
- */
 public class SubMenuWidget {
 
     Query link;
